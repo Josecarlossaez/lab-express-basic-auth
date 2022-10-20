@@ -45,10 +45,54 @@ router.post("/signup", async(req, res, next) =>{
 
   } catch (error){
     next(error)
-  }
+  };
+});
 
+//GET ("/auth/login")
+router.get("/login", (req,res,next) => {
+    res.render("auth/login.hbs")
 })
 
+// POST ("/auth/login")
+router.post("/login", async (req,res,next) => {
+    const {username, password} = req.body
 
+    try{
+        const foundUser = await User.findOne({username: username});
+        // verificar usuario
+        if (foundUser === null) {
+            // si no existe
+            res.render("auth/login.hbs", {
+              errorMessage: "Credenciales incorrectas",
+            });
+            return;
+          }
+
+        // verificar contraseña de usuario
+        const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+        if(isPasswordValid === false){
+            res.render("auth/login.hbs", {
+                errorMessage : "Credenciales incorrectas"
+            });
+            return;
+        }
+        // mantener la sesión activa
+        req.session.activeUser = foundUser;
+        // asegurar que la sesión se ha creado
+        req.session.save(() => {
+            res.redirect("/profile")
+        })
+
+    } catch(error){
+        next(error)
+    }
+});
+
+// GET ("/auth/logout")
+router.get("/logout", (req,res,next) => {
+    req.session.destroy(() => {
+        res.redirect("/")
+    })
+})
 
 module.exports = router;

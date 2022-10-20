@@ -1,3 +1,15 @@
 <div>
     <h3>Accede a tu perfil</h3>
+      <form action="/auth/login" method="POST">
+
+    <label for="username">Username</label>
+    <input type="text" name="username" />
+    <br />
+    <label for="password">Contraseña: </label>
+    <input type="text" name="password" />
+    <br />
+    <p style="color:red">{{errorMessage}}</p>
+    <button>Acceder</button>
+
+  </form>
 </div>
