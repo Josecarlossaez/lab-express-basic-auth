@@ -1,0 +1,17 @@
+<div>
+    <h3>Registrate si no tienes una cuenta</h3>
+
+    <form action="/auth/signup" method="POST">
+<label for="username">Nombre de Usuario: </label>
+<input type="text" name="username">
+<br>
+
+<label for="password">Contraseña: </label>
+<input type="text" name="password">
+<br>
+<p style="color:red">{{errorMessage}}</p>
+<button>Registrarme</button>
+
+    </form>
+
+</div>
