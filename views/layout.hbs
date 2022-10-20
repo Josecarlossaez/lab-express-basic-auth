@@ -11,11 +11,14 @@
 
   <body>
 <nav>
+  {{#if isUserActive}}
+<a href="/auth/profile">Perfil de usuario</a>
+<a href="/auth/logout">Cerrar sesión</a>
+{{else}}
   <a href="/">Home</a>
 <a href="/auth/signup">Registrarse</a>
 <a href="/auth/login">Acceder</a>
-<a href="/auth/profile">Perfil de usuario</a>
-<a href="/auth/logout">Cerrar sesión</a>
+{{/if}}
 
 </nav>
     {{{body}}}
