@@ -29,6 +29,8 @@ router.post("/signup", async(req, res, next) =>{
             errorMessage : "Usuario ya creado con ese nombre"
         });
         return;
+    }else{
+        res.render("auth/login.hbs")
     }
     // generar seguridad de contraseña
    const salt = await bcrypt.genSalt(12);
